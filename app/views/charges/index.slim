@@ -1,4 +1,30 @@
-h1.main hello!
-
-button.btn.btn-primary
-  | test button
+.charges
+  - if @charges_day.empty?
+    .no-charges
+      .jumbotron.jumbotron-fluid.bg-success.rounded.text-white
+        .container.text-center
+          i.far.fa-check-circle.mb-2
+          p.lead Расходы отсутствуют :)
+  - else
+    .row
+      .col.text-center
+        h2= month_title(@charges_day)
+    - @charges_day.each do |day, charges|
+      .row.mb-2
+        .col
+          button class='btn btn-primary btn-lg btn-block' type="button" data-toggle='collapse' data-target="#date_#{charges.first.date.day}-#{charges.first.date.month}"
+            .row.justify-content-between
+              .col-md-4
+                = day_title(charges)
+              .col-md-4
+                = format_price(charges.sum(&:price))
+          .collapse.mt-1 id="date_#{charges.first.date.day}-#{charges.first.date.month}"
+            - @charges.find_by_date(charges.first.date).each do |date_charge|
+             .card.card-body
+                .row
+                  .col
+                    = date_charge.name
+                  .col
+                    = date_charge.formatted_price
+                  .col
+                    = date_charge.amount
