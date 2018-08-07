@@ -4,10 +4,10 @@ module ChargesHelper
   end
 
   def day_title(charges)
-    charges.first.date.strftime('%d %B')
+    charges.first.date.strftime('%-d') + ' ' + t(charges.first.date.strftime('%B').downcase)
   end
 
   def format_price(amount)
-    number_to_currency(amount, separator: ' грн. ', unit: 'коп.', format: "%n %u")
+    number_to_currency(amount, delimiter: ' ', separator: 'грн. ', unit: 'коп.', format: "%n %u")
   end
 end

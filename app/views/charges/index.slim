@@ -1,5 +1,16 @@
 .charges
-  - if @charges_day.empty?
+  = simple_form_for :date,
+    wrapper: :date_select,
+    html: { class: 'd-flex flex-column flex-md-row' },
+    url: charges_path,
+    method: :get do |f|
+    .col-md-5.col-sm-12
+      = f.input :year, collection: 2018..2020, selected: params.dig(:date, :year) || Date.today.year
+    .col-md-5.col-sm-12
+      = f.input :month, collection: Charge::MONTHS.transform_keys { |k| t(k) }, selected: params.dig(:date, :month) || Date.today.month, prompt: :translate
+    .col-md-2.col-sm-12.text-center
+      = f.button :submit, 'Показать расходы'
+  - unless @charges_day&.present?
     .no-charges
       .jumbotron.jumbotron-fluid.bg-success.rounded.text-white
         .container.text-center
@@ -7,24 +18,37 @@
           p.lead Расходы отсутствуют :)
   - else
     .row
-      .col.text-center
-        h2= month_title(@charges_day)
+      .col.col-sm-12.text-center
+        h2= t(month_title(@charges_day).downcase)
     - @charges_day.each do |day, charges|
       .row.mb-2
-        .col
-          button class='btn btn-primary btn-lg btn-block' type="button" data-toggle='collapse' data-target="#date_#{charges.first.date.day}-#{charges.first.date.month}"
-            .row.justify-content-between
-              .col-md-4
-                = day_title(charges)
-              .col-md-4
-                = format_price(charges.sum(&:price))
-          .collapse.mt-1 id="date_#{charges.first.date.day}-#{charges.first.date.month}"
-            - @charges.find_by_date(charges.first.date).each do |date_charge|
-             .card.card-body
-                .row
-                  .col
+        button class='btn btn-outline-primary btn-lg btn-block' type="button" data-toggle='collapse' data-target="#date_#{charges.first.date.day}-#{charges.first.date.month}"
+          .row.d-flex.justify-content-between
+            .col.text-left
+              = day_title(charges)
+            .col.text-right
+              = format_price(charges.sum(&:price))
+              i.fas.fa-angle-down.ml-2
+        .collapse.mt-1.w-100 id="date_#{charges.first.date.day}-#{charges.first.date.month}"
+          table.table.table-hover
+            thead.bg-light.rounded-top
+              tr
+                th
+                  | Название
+                th
+                  | Кол.
+                th
+                  | Категория
+                th
+                  | Стоимость
+            tbody
+              - @charges.find_by_date(charges.first.date).order(:category).each do |date_charge|
+                tr
+                  td
                     = date_charge.name
-                  .col
-                    = date_charge.formatted_price
-                  .col
+                  td
                     = date_charge.amount
+                  td
+                    = date_charge.category
+                  td
+                    = date_charge.formatted_price

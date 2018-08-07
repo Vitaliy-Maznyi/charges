@@ -1,0 +1,18 @@
+ru:
+  january: 'Январь'
+  february: 'Февраль'
+  march: 'Март'
+  april: 'Апрель'
+  may: 'Май'
+  june: 'Июнь'
+  july: 'Июль'
+  august: 'Август'
+  september: 'Сентябрь'
+  october: 'Октябрь'
+  november: 'Ноябрь'
+  december: 'Декабрь'
+
+  simple_form:
+    required:
+      text: 'required'
+      mark: ''

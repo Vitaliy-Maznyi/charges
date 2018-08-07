@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'slim'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.3'
+gem 'simple_form'
 
 group :development, :test do
   gem 'dotenv-rails'
