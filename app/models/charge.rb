@@ -11,6 +11,8 @@ class Charge < ApplicationRecord
     one_time: 8
   }
 
+  validates :name, :price, :category, :date, presence: true
+
   scope :find_by_month_and_year, -> (month, year) { where("extract(year from date) = ? and extract(month from date) =?", year, month) }
   scope :find_by_date, -> (date) { where("extract(year from date) = ? and extract(month from date) =? and extract(day from date) = ?", date.year, date.month, date.day) }
 

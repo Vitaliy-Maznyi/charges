@@ -1,1 +1,11 @@
-p Form will be here
+= simple_form_for @charge do |f|
+  = f.input :name
+  = f.input :price, as: :decimal
+  = f.input :amount
+  = f.input :category,
+          collection: Charge.categories.transform_values { |v| t(Charge.categories.key(v)) },
+          value_method: :first,
+          label_method: :second,
+          include_blank: false
+  = f.input :date, as: :date, html5: true
+  = f.button :submit, 'Добавить расходы', class: 'btn-block'

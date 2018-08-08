@@ -10,7 +10,7 @@ class ChargesController < ApplicationController
 
   def create
     @charge = Charge.new(charge_params)
-    @charge.save!
+    @charge.save ? (redirect_to charges_path) : (render :new)
   end
 
   private
@@ -23,6 +23,6 @@ class ChargesController < ApplicationController
   end
 
   def charge_params
-    params.require(:charge).permit(%i[name, price category amount])
+    params.require(:charge).permit(%i[name price category amount date])
   end
 end

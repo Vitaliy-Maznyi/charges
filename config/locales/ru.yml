@@ -12,7 +12,31 @@ ru:
   november: 'Ноябрь'
   december: 'Декабрь'
 
+  food: 'Еда'
+  extra_food: 'Вкусняшки'
+  alcohol: 'Алкоголь'
+  transport: 'Проезд'
+  mobile: 'Мобильный счет'
+  internet: 'Интернет'
+  flat: 'Аренда квартиры'
+  domestic: 'Бытовые'
+  one_time: 'Единораз.'
+
+  errors:
+    format: "%{message}"
+  activerecord:
+    errors:
+      messages:
+        blank: 'Нужно заполнить'
+
   simple_form:
     required:
       text: 'required'
       mark: ''
+    labels:
+      charge:
+        name: 'Название'
+        price: 'Цена'
+        amount: 'Количество/объем'
+        category: 'Категория'
+        date: 'Дата'
