@@ -10,7 +10,13 @@ class ChargesController < ApplicationController
 
   def create
     @charge = Charge.new(charge_params)
-    @charge.save ? (redirect_to charges_path) : (render :new)
+    if @charge.save
+      flash[:success] = 'Добавлено :)'
+      redirect_to new_charge_path
+    else
+      flash[:error] = 'ошибка :('
+      render :new
+    end
   end
 
   private

@@ -15,4 +15,7 @@ html
     = render 'shared/navigation'
 
     .container.mt-3
+      - flash.each do |type, content|
+        = render 'shared/flash', type: type, content: content
+
       = yield
