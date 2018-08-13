@@ -10,6 +10,7 @@
       = f.input :month, collection: Charge::MONTHS.transform_keys { |k| t(k) }, selected: params.dig(:date, :month) || Date.today.month, prompt: :translate
     .col-md-2.col-sm-12.text-center
       = f.button :submit, 'Показать расходы'
+  hr
   - unless @charges_day&.present?
     .no-charges
       .jumbotron.jumbotron-fluid.bg-success.rounded.text-white
@@ -17,9 +18,12 @@
           i.far.fa-check-circle.mb-2
           p.lead Расходы отсутствуют :)
   - else
-    .row
-      .col.col-sm-12.text-center
-        h2= t(month_title(@charges_day).downcase)
+    .row.justify-content-between
+      .col
+        h2.d-flex.justify-content-between
+          = t(month_title(@charges_day).downcase)
+          span.badge.badge-pill.badge-primary
+            = format_price(@charges.sum(&:price))
     - @charges_day.each do |day, charges|
       .row.mb-2
         button class='btn btn-outline-primary btn-lg btn-block' type="button" data-toggle='collapse' data-target="#date_#{charges.first.date.day}-#{charges.first.date.month}"
