@@ -1,0 +1,14 @@
+td
+  = charge.name
+td
+  = charge.amount
+td
+  = t(charge.category)
+td
+  .d-flex.justify-content-between
+    span = charge.formatted_price
+    .d-none.d-md-block.btn-group role="group"
+      = link_to edit_charge_path(charge.id), class: 'btn btn-outline-info'
+        i.far.fa-edit
+      = link_to charge_path(charge.id), method: :delete, class: 'btn btn-outline-danger'
+        i.fas.fa-trash

@@ -47,12 +47,8 @@
                   | Стоимость
             tbody
               - @charges.find_by_date(charges.first.date).order(:category).each do |date_charge|
-                tr
-                  td
-                    = date_charge.name
-                  td
-                    = date_charge.amount
-                  td
-                    = t(date_charge.category)
-                  td
-                    = date_charge.formatted_price
+                tr.d-none.d-md-table-row
+                  = render 'charges/charge_row', charge: date_charge
+                tr.d-md-none.d-table-row.js-charge-click data-id="#{date_charge.id}"
+                  = render 'charges/charge_row', charge: date_charge
+                = render 'charges/modal', charge: date_charge

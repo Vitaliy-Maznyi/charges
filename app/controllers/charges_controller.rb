@@ -19,6 +19,28 @@ class ChargesController < ApplicationController
     end
   end
 
+  def edit
+    @charge = Charge.find(params[:id])
+  end
+
+  def update
+    @charge = Charge.find(params[:id])
+    if @charge.update(charge_params)
+      flash[:success] = 'Изменения сохранены'
+      redirect_to charges_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @charge = Charge.find(params[:id])
+    if @charge.destroy
+      flash[:success] = 'Запись удалена'
+      redirect_to charges_path
+    end
+  end
+
   private
 
   def charge_date_params

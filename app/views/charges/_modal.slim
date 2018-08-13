@@ -1,0 +1,10 @@
+.modal.fade.js-charge-modal role='dialog' data-id="#{charge.id}"
+  .modal-dialog.modal-dialog-centered role='document'
+    .modal-content
+      .modal-body
+        = link_to edit_charge_path(charge.id), class: 'btn btn-info btn-block'
+          i.far.fa-edit
+          span.ml-1 Редактировать
+        = link_to charge_path(charge.id), method: :delete, class: 'btn btn-danger btn-block'
+          i.fas.fa-trash
+          span.ml-1 Удалить
